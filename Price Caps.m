@@ -15,7 +15,8 @@ b2capped[c_] := Min[c+\[Mu]+5, b2[c]];
 F3[b_] := (b-\[Mu]-5)/90;
 P3[b_,c_] := (b-c)BetaRegularized[1-F3[b],8,8];
 b3[c_] := b/.Last[NMaximize[{P3[b,c],c+\[Mu]+5<=b<=begin2}, b]]; bidf5[c_] := Piecewise[{{b3[c],c>=10&&c<s2[begin2]}, {b2[c], c>= s2[begin2]&&c<=100}}];
-p5=Plot[{c, bidf5[c]}, {c,10,100}, PlotRange-> 0,110}, AxesLabel-> {"Bid","Cost"}, PlotStyle-> {{Gray,Thin}, {Red,{Dotted,Thick}}}, PlotLegends-> {None,"\[Mu]=5"}]
+p5 = Plot[{c, bidf5[c]}, {c,10,100}, PlotRange-> 0,110}, 
+  AxesLabel-> {"Bid","Cost"}, PlotStyle-> {{Gray,Thin}, {Red,{Dotted,Thick}}}, PlotLegends-> {None,"\[Mu]=5"}]
 
 \[Mu]=15;
 b1[c_]=(55 (13726000000000+1098080000000 c+49444800000 c^2+1633600000 c^3+48200000 c^4+720000 c^5+52000 c^6-832 c^7+39 c^8))/
@@ -35,7 +36,7 @@ F3[b_] := (b-\[Mu]-5)/90;
 P3[b_,c_] := (b-c)BetaRegularized[1-F3[b],8,8];
 b3[c_] := b/.Last[NMaximize[{P3[b,c], c+\[Mu]+5<=b<=begin2}, b]];
 bidf15[c_] := Piecewise[{{b3[c], c>=10&&c<s2[begin2]}, {b2[c], c>=s2[begin2]&&c<c1}, {b1[c], c>=c1&&c<100}}];
-p15=Plot[{bidf15[c],c}, {c,10,100}, PlotRange-> {0,110}, 
+p15 = Plot[{bidf15[c],c}, {c,10,100}, PlotRange-> {0,110}, 
   AxesLabel-> {"Bid","Cost"}, PlotStyle-> {{Blue,{Dashed,Thin}}, {LightGray,Thin}}, PlotLegends-> {"\[Mu]=15",None}]
 
 \[Mu] = 3;
@@ -73,9 +74,10 @@ p3 = Plot[b3[c], {c,s3[begin3],s3[end3]}, AxesLabel-> {"Cost","Bid"}]
 F4[b_] := ((5+\[Mu])(b-\[Mu]-15)+(\[Mu]+5)^2/2)/900;
 P4[b_,c_] := (b-c)BetaRegularized[1-F4[b],8,8];
 Manipulate[Plot[P4[b,c], {b,c,begin3}], {c,10,s3[begin3]}]
-b4[c_] := b/.Last[NMaximize[{P4[b,c],c<=b<=begin3},b]];
+b4[c_] := b/.Last[NMaximize[{P4[b,c],c<=b<=begin3}, b]];
 p4 = Plot[b4[c], {c,10,s3[begin3]}, AxesLabel-> {"Cost","Bid"}]
 bidf3[c_] := Piecewise[{{b1[c],c>=s2[end2]}, {b2[c],c>=s3[end3]&&c<s2[end2]}, {b3[c],c>=s3[begin3]&&c<s3[end3]}, {b4[c],c>= 10&&c<s3[begin3]}}]; 
-p3=Plot[{bidf3[c],c}, {c,10,100}, PlotRange-> {0,110}, AxesLabel-> {"Cost","Bid"}, PlotStyle-> {{DarkGreen,DotDashed},{Gray,Thin}}, PlotLegends-> {"\[Mu]=3",None}]
+p3 = Plot[{bidf3[c],c}, {c,10,100}, PlotRange-> {0,110}, 
+  AxesLabel-> {"Cost","Bid"}, PlotStyle-> {{DarkGreen,DotDashed},{Gray,Thin}}, PlotLegends-> {"\[Mu]=3",None}]
 
 Show[p3,p5,p15]
