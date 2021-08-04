@@ -12,9 +12,10 @@ Off[InterpolatingFunction::dmval];
 (*Compute bid function at center of each grid square*)
 barray = Table[{c+hc/2, e+he/2, 1.bidf[c+hc/2, e+he/2]}, {c, 10, 100-hc, hc}, {e, -5, 5-he, he}] // Flatten[#,1] &;
 bidinterp = Interpolation[barray]; (*Interpolate (and extrapolate) bid function over region*)
-Plot3D[{c, bidinterp[c,e]+.1}, {c,10,100}, {e,-5,5}, AxesLabel-> "Cost","Noise","Bid"}, Exclusions-> None,
+Plot3D[{c, bidinterp[c,e]+.1}, {c,10,100}, {e,-5,5}, AxesLabel-> {"Cost","Noise","Bid"}, Exclusions-> None,
   PlotRange-> {{10,100}, {-45,45}}, Ticks-> {{10,55,100},{-5,0,5},{10,55,100}}]
 (*Draw nsim samples of 15 bidders.*)
+SeedRandom[50682479]
 Do[
   bigsim = {};
 (*Each bidder represented by cost, error, and bid*)
@@ -52,6 +53,7 @@ AppendTo[newbarray, {c+1.hc/2, e+1.he/2, newbid}], {c,10,100-hc,hc}, {e,-5,5-he,
 Print[SortBy[newbarray,First]];
 bidinterp = Interpolation[newbarray];
 Print[Plot3D[{c,bidinterp[c,e]+.1}, {c,10,100}, {e,-5,5}, AxesLabel->{"Cost","Noise","Bid"}, Exclusions->None,
-  PlotRange-> {{10,100},{-45,45}}, Ticks-> {{10,55,100},{-5,0,5},{10,55,100}}]],
+  PlotRange -> {{0, 100}, {-5, 5}, {0, 110}}, Ticks -> {{10, 55, 100}, {-5, 0, 5}, {10, 55, 100}}, 
+  BoxRatios -> {10, 1, 10}, PlotStyle -> Opacity[0.75], ViewPoint -> {-3, -2, 1}]],
 {iter,maxiter}]
 
