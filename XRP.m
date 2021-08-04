@@ -17,8 +17,10 @@ Plot[scr[s], {s,29/30,641/210}]
 s[c_,e_] : c/(c+e)+(c+e)/50
 b[c_,e_] : (c+e)(scr[s[c,e]]-(c+e)/50)*)
 Plot3D[{s[c,e],scr[s[c,e]]}, {c,10,100}, {e,-5,5}, AxesLabel->{"Cost","Noise","Score"}, Exclusions->None,
-  PlotRange-> {{10,100},{-45,45}}, Ticks-> {{10,55,100},{-5,0,5},{1,2,3}}]
+  PlotRange -> {{0, 100}, {-5, 5}, {0, 3.25}}, Ticks -> {{10, 55, 100}, {-5, 0, 5}, {1, 2, 3}}, 
+  BoxRatios -> {10, 1, 10}, PlotStyle -> Opacity[0.75], ViewPoint -> {-3, -2, 1}]
 Plot3D[{c,b[c,e]}, {c,10,100}, {e,-5,5}, AxesLabel->{"Cost","Noise","Bid"}, Exclusions->None,
-  PlotRange-> {{10,100},{-45,45}}, Ticks-> {{10,55,100},{-5,0,5},{10,55,100}}]
+  PlotRange -> {{0, 100}, {-5, 5}, {0, 110}}, Ticks -> {{10, 55, 100}, {-5, 0, 5}, {10, 55, 100}}, 
+  BoxRatios -> {10, 1, 10}, PlotStyle -> Opacity[0.75], ViewPoint -> {-3, -2, 1}]
 Table[{c,e,scr[s[c,e]],b[c,e]}, {c,10,100}, {e,-5,5}];
 Export["XRP Table.csv", Flatten[%], "Table"]
